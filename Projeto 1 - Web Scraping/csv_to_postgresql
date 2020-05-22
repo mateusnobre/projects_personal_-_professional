@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# you can type 'which bash' on terminal if your file won't work
+# because of different bash paths, after that just change the first line of this file
+# with your bash path
+  
+db_name='database_name'
+# create database with name data_base (make sure that this name don't exist)
+psql -c "CREATE TABLE $db_name(
+    index int,
+    name varchar  (255),
+    price float,
+    books_in_stock int,
+    category varchar (50),
+    rating varchar (10),
+    url_img varchar (1000)
+)"
+
+# read data.csv file from your directory
+psql -c "COPY $db_name(index, name, price, books_in_stock, category, rating, url_img)
+FROM '$(pwd)/data.csv'
+DELIMITER ',' CSV HEADER"
